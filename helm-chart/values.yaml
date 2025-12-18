@@ -1,6 +1,7 @@
 replicaCount: 3
+
 image:
-  repository: naveenkumarvelanati/python-argo
+  repository: your-dockerhub-username/python-argo
   tag: latest
 
 service:
