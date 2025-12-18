@@ -2,8 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace | default "python-app" }}
+  labels:
+    app: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: {{ .Release.Name }}
@@ -11,13 +20,21 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name | default "default" }}
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
         - name: python-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
           ports:
-            - containerPort: 5000
+            - containerPort: {{ .Values.containerPort | default 5000 }}
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config
@@ -26,13 +43,13 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 5000
+              port: {{ .Values.containerPort | default 5000 }}
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /
-              port: 5000
+              port: {{ .Values.containerPort | default 5000 }}
             initialDelaySeconds: 15
             periodSeconds: 20
           resources:
