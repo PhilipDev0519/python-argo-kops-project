@@ -1,0 +1,9 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  name: python.k8s.local
+spec:
+  cloudProvider: aws
+  region: us-east-1
+  nodeCount: 3
+  nodeSize: t3.medium
