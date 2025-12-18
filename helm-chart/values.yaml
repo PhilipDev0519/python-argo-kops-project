@@ -9,4 +9,4 @@ image:
   tag: latest
 
 serviceAccount:
-  name: default
+  name: python-app-sa
