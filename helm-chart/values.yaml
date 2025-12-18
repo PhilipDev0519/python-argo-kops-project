@@ -7,3 +7,6 @@ image:
 service:
   type: LoadBalancer
   port: 80
+
+secrets:
+  dbPassword: "changeme"
