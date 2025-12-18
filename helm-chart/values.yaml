@@ -2,6 +2,7 @@ replicaCount: 3
 image:
   repository: naveenkumarvelanati/python-argo
   tag: latest
+
 service:
   type: LoadBalancer
   port: 80
