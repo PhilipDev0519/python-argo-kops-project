@@ -1,12 +1,12 @@
+namespace: python-app
+
 replicaCount: 3
 
+containerPort: 5000
+
 image:
-  repository: your-dockerhub-username/python-argo
+  repository: naveenkumarvelanati/python-argo
   tag: latest
 
-service:
-  type: LoadBalancer
-  port: 80
-
-secrets:
-  dbPassword: "changeme"
+serviceAccount:
+  name: default
