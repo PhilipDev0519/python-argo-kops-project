@@ -1,2 +1,29 @@
-# python-argo-kops-project
-This project demonstrates how to design, deploy, and operate a highly available Python application on a Kubernetes cluster built using Kops on AWS. The deployment follows GitOps principles using Argo CD, ensuring automated, auditable, and reliable application delivery.
+# Python Application Deployment using Argo CD & Kops
+
+## Tech Stack
+- AWS EC2, IAM, S3
+- Kubernetes (Kops)
+- Helm
+- Argo CD (GitOps)
+- Docker
+- Python (Flask)
+
+## Architecture
+GitHub → Argo CD → Kubernetes (Kops) → Python App
+
+## Features
+- High availability using replicas
+- GitOps-based automated deployments
+- Helm-based application packaging
+- Auto-scaling using HPA
+- Production-ready Kubernetes manifests
+
+## Deployment Steps
+1. Create Kops cluster
+2. Install Argo CD
+3. Push code to GitHub
+4. Argo CD auto-syncs
+5. App deployed automatically
+
+## Outcome
+Fully automated, self-healing Python application deployment using GitOps.
